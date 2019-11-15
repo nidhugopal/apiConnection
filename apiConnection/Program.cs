@@ -22,12 +22,20 @@ namespace apiConnection
                 JArray planets = (JArray)planetdata["results"];
                 foreach (JObject planet in planets)
                 {
-                    Console.WriteLine(planet["name"]);
+                    Console.WriteLine("Planet:" + planet["name"]);
                     JArray films = (JArray)planet["films"];
-                    foreach (JValue film in films)
+                    if (films.HasValues)
                     {
-                        Console.WriteLine(CallRestMethod(film.ToString())["title"]);
+                        foreach (JValue film in films)
+                        {
+                            Console.WriteLine("\t" + CallRestMethod(film.ToString())["title"]);
+                        }
                     }
+                    else
+                    {
+                        Console.WriteLine("\t No Films");
+                    }
+
                     Console.WriteLine();
                 }
 
